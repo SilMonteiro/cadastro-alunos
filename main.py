@@ -32,13 +32,13 @@ def cadastro_aluno(df):
     print("\n-> Para iniciar o cadastro do aluno, por favor preencha os campos abaixo:\n")
     dados_cadastro = {}
     dados_cadastro['nome'] = input("Digite o nome do aluno:").strip().lower()
-    dados_cadastro['rua'] = input("Digite a rua do aluno:")strip().lower()
+    dados_cadastro['rua'] = input("Digite a rua do aluno:").strip().lower()
     dados_cadastro['numero'] = input("Digite o numero da casa do aluno:")
-    dados_cadastro['bairro'] = input("Digite o bairro do aluno:")strip().lower()
-    dados_cadastro['cidade'] = input("Digite a cidade do aluno:")strip().lower()
-    dados_cadastro['uf'] = input("Digite a UF do aluno:")strip().lower()
+    dados_cadastro['bairro'] = input("Digite o bairro do aluno:").strip().lower()
+    dados_cadastro['cidade'] = input("Digite a cidade do aluno:").strip().lower()
+    dados_cadastro['uf'] = input("Digite a UF do aluno:").strip().lower()
     dados_cadastro['telefone'] = input("Digite o telefone do aluno:")
-    dados_cadastro['email'] = input("Digite o email do aluno:")strip().lower()
+    dados_cadastro['email'] = input("Digite o email do aluno:").strip().lower()
     dados_cadastro['matricula'] = numero_matricula(df)
 
     novo_aluno_data = {
@@ -67,6 +67,13 @@ def cadastro_aluno(df):
 
     return df
 
+
+def pesquisar_aluno(df):
+
+    pesquisa_aluno = input('\n-> PESQUISAR ALUNO - DIGITE A OPÇÃO DESEJADA:\n1 - Pesquisar pelo nome\n2 - Pesquisar pela matrícula\n').strip().lower()
+
+     
+     
 def menu_inicial():
 
     df = gerar_df()
@@ -85,7 +92,6 @@ def menu_inicial():
         df = pesquisar_aluno(df)
     elif escolha == 3:
         print("\n-> Saindo do sistema. Até mais!\n")
-        exit()
     else:
         print("\n-> Opção inválida. Tente novamente.\n")
         menu_inicial()
