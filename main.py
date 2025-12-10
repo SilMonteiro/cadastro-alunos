@@ -8,7 +8,7 @@ def gerar_df():
     try:
         df = pd.read_csv('alunos.csv')
     except FileNotFoundError:
-        df = pd.DataFrame(Columns=["Matricula", "Nome", "Rua", "Número", "Bairro", "Cidade", "UF", "Telefone", "e-mail"])
+        df = pd.DataFrame(columns=["Matricula", "Nome", "Rua", "Número", "Bairro", "Cidade", "UF", "Telefone", "e-mail"])
 
     return df
 
@@ -27,6 +27,8 @@ def numero_matricula(df):
     
 
 def cadastro_aluno(df):
+
+    df = gerar_df()
 
     print("\n-> Para iniciar o cadastro do aluno, por favor preencha os campos abaixo:\n")
     dados_cadastro = {}
@@ -66,8 +68,25 @@ def cadastro_aluno(df):
 
     return df
 
+def menu_inicial():
+
+    df = gerar_df()
+    print ("\n===== MENU INICIAL =====\n 1 - CADASTRAR ALUNO\n 2 - PESQUISAR ALUNO\n 3 - SAIR\n")
+    escolha = int(input("Escolha uma opção: "))
+
+    if escolha == 1:
+        df = cadastro_aluno(df)
+    elif escolha == 2:
+        df = pesquisar_aluno(df)
+    elif escolha == 3:
+        print("\n-> Saindo do sistema. Até mais!\n")
+        exit()
+    else:
+        print("\n-> Opção inválida. Tente novamente.\n")
+        menu_inicial()
 
 
+menu_inicial()
 
 
     
