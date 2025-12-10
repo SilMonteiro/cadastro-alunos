@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import random
 
+
 def gerar_df():
     
     try:
@@ -51,13 +52,26 @@ def cadastro_aluno(df):
         'e-mail': [dados_cadastro['email']]
     }
 
-    # Cria um novo DataFrame a partir dos dados do novo aluno
     df_novo_aluno = pd.DataFrame(novo_aluno_data)
 
-    # CORREÇÃO 2: Usando pd.concat() para combinar o DataFrame existente com o novo
     df = pd.concat([df, df_novo_aluno], ignore_index=True)
 
     salvando_dados(df)
     print("\n-> Aluno cadastrado com sucesso!\n")
+    print(df)
+
+    saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
+    if saida == 'S':
+        menu_inicial()
+
     return df
+
+
+
+
+
+    
+
+
+
 
