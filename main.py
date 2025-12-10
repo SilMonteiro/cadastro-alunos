@@ -28,18 +28,17 @@ def numero_matricula(df):
 
 def cadastro_aluno(df):
 
-    df = gerar_df()
-
+    
     print("\n-> Para iniciar o cadastro do aluno, por favor preencha os campos abaixo:\n")
     dados_cadastro = {}
-    dados_cadastro['nome'] = input("Digite o nome do aluno:")
-    dados_cadastro['rua'] = input("Digite a rua do aluno:")
+    dados_cadastro['nome'] = input("Digite o nome do aluno:").strip().lower()
+    dados_cadastro['rua'] = input("Digite a rua do aluno:")strip().lower()
     dados_cadastro['numero'] = input("Digite o numero da casa do aluno:")
-    dados_cadastro['bairro'] = input("Digite o bairro do aluno:")
-    dados_cadastro['cidade'] = input("Digite a cidade do aluno:")
-    dados_cadastro['uf'] = input("Digite a UF do aluno:")
+    dados_cadastro['bairro'] = input("Digite o bairro do aluno:")strip().lower()
+    dados_cadastro['cidade'] = input("Digite a cidade do aluno:")strip().lower()
+    dados_cadastro['uf'] = input("Digite a UF do aluno:")strip().lower()
     dados_cadastro['telefone'] = input("Digite o telefone do aluno:")
-    dados_cadastro['email'] = input("Digite o email do aluno:")
+    dados_cadastro['email'] = input("Digite o email do aluno:")strip().lower()
     dados_cadastro['matricula'] = numero_matricula(df)
 
     novo_aluno_data = {
@@ -72,8 +71,14 @@ def menu_inicial():
 
     df = gerar_df()
     print ("\n===== MENU INICIAL =====\n 1 - CADASTRAR ALUNO\n 2 - PESQUISAR ALUNO\n 3 - SAIR\n")
-    escolha = int(input("Escolha uma opção: "))
 
+    try:
+        escolha = int(input("Escolha uma opção: "))
+    except ValueError:
+        print("\n-> Opção inválida. Tente novamente.\n")
+        menu_inicial()
+        return
+    
     if escolha == 1:
         df = cadastro_aluno(df)
     elif escolha == 2:
