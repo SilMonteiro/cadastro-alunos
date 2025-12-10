@@ -17,4 +17,10 @@ def salvando_dados(df):
     df.to_csv('alunos.csv', index=False)
 
     
+def numero_matricula(df):
+
+    if df.empty:
+        return 1
+    else:
+        return df['Matricula'].max() + 1
 
