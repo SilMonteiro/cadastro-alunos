@@ -70,12 +70,31 @@ def cadastro_aluno(df):
 
     return df
 
+def remover_aluno(df, index):
+
+    print("\n-> VOCÊ SELECIONOU A OPÇÃO DE REMOVER ALUNO.\nSeguem os dados atuais do aluno:\n")
+    print(df.loc[index])
+    confirmacao = input("\nTem certeza que deseja remover este aluno? Digite 'S' para confirmar ou qualquer outra tecla para cancelar: ").upper()
+    if confirmacao == 'S':
+        df = df.drop(index)
+        salvando_dados(df)
+        print("\n-> Aluno removido com sucesso!\n")
+    else:
+        print("\n-> Operação de remoção cancelada.\n")
+
+    saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
+    if saida == 'S':
+        menu_inicial()
+
+    return df
+
+
 
 def editar_aluno(df, index):
 
     print("\n-> VOCÊ SELECIONOU A OPÇÃO DE EDITAR ALUNO.\nSeguem os dados atuais do aluno:\n")
     print(df.loc[index])
-    opcao = (input("\nQual dado você deseja editar?\n1 - Nome\n2 - Rua\n3 - Número\n4 - Bairro\n5 - Cidade\n6 - UF\n7 - Telefone\n8 - e-mail\n9 - Sair sem editar\n"))
+    opcao = (input("\nQual dado você deseja editar?\n1 - Nome\n2 - Rua\n3 - Número\n4 - Bairro\n5 - Cidade\n6 - UF\n7 - Telefone\n8 - e-mail\n9 - Sair sem editar\nR - Para remover o aluno\n")).strip().lower()
 
     colunas = {'1': 'Nome','2': 'Rua','3': 'Número','4': 'Bairro','5': 'Cidade','6': 'UF','7': 'Telefone','8': 'e-mail'}
 
@@ -92,8 +111,10 @@ def editar_aluno(df, index):
         saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
         if saida == 'S':
             menu_inicial()
-            
-                   
+
+    elif opcao == 'r':
+        df = remover_aluno(df, index)
+        
 
     return df
 
