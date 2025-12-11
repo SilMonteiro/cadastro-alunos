@@ -5,6 +5,7 @@ import random
 
 def gerar_df():
     
+    # Gerando um DataFrame novo ou carregando dados já existentes
     try:
         df = pd.read_csv('alunos.csv')
     except FileNotFoundError:
@@ -18,11 +19,13 @@ def gerar_df():
 
 def salvando_dados(df):
 
+    #Salvando os dados no arquivo CSV
     df.to_csv('alunos.csv', index=False)
 
     
 def numero_matricula(df):
-
+ 
+    #Gerando o número de matrícula
     if df.empty:
         return 1
     else:
@@ -31,7 +34,7 @@ def numero_matricula(df):
 
 def cadastro_aluno(df):
 
-    
+    #Cadastrando um novo aluno
     print("\n-> Para iniciar o cadastro do aluno, por favor preencha os campos abaixo:\n")
     dados_cadastro = {}
     dados_cadastro['nome'] = input("Digite o nome do aluno:").strip().lower()
@@ -55,15 +58,17 @@ def cadastro_aluno(df):
         'Telefone': [dados_cadastro['telefone']],
         'e-mail': [dados_cadastro['email']]
     }
-
+    #Criando um Dataframe para o novo aluno
     df_novo_aluno = pd.DataFrame(novo_aluno_data)
-
+    
+    #Adicionando o novo aluno ao DataFrame criado
     df = pd.concat([df, df_novo_aluno], ignore_index=True)
 
     salvando_dados(df)
     print("\n-> Aluno cadastrado com sucesso!\n")
     print(df)
 
+    #Voltar ao menu ou sair
     saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
     if saida == 'S':
         menu_inicial()
@@ -71,7 +76,8 @@ def cadastro_aluno(df):
     return df
 
 def remover_aluno(df, index):
-
+    
+    #Opcao de remover aluno
     print("\n-> VOCÊ SELECIONOU A OPÇÃO DE REMOVER ALUNO.\nSeguem os dados atuais do aluno:\n")
     print(df.loc[index])
     confirmacao = input("\nTem certeza que deseja remover este aluno? Digite 'S' para confirmar ou qualquer outra tecla para cancelar: ").upper()
@@ -82,6 +88,7 @@ def remover_aluno(df, index):
     else:
         print("\n-> Operação de remoção cancelada.\n")
 
+    #Voltar ao menu ou sair
     saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
     if saida == 'S':
         menu_inicial()
@@ -92,16 +99,19 @@ def remover_aluno(df, index):
 
 def editar_aluno(df, index):
 
+    #Editando os dados do aluno
     print("\n-> VOCÊ SELECIONOU A OPÇÃO DE EDITAR ALUNO.\nSeguem os dados atuais do aluno:\n")
     print(df.loc[index])
     opcao = (input("\nQual dado você deseja editar?\n1 - Nome\n2 - Rua\n3 - Número\n4 - Bairro\n5 - Cidade\n6 - UF\n7 - Telefone\n8 - e-mail\n9 - Sair sem editar\nR - Para remover o aluno\n")).strip().lower()
 
     colunas = {'1': 'Nome','2': 'Rua','3': 'Número','4': 'Bairro','5': 'Cidade','6': 'UF','7': 'Telefone','8': 'e-mail'}
 
+    #Opcao de retornar pro menu
     if opcao == '9':
         menu_inicial()
         return df
     
+    #Editando informação selecionada
     elif opcao in colunas:
         nova_informacao = input(f"\nDigite a nova informação para {colunas[opcao]}: ").strip().lower()
         df.at[index, colunas[opcao]] = nova_informacao
@@ -112,9 +122,10 @@ def editar_aluno(df, index):
         if saida == 'S':
             menu_inicial()
 
+    #Removendo aluno
     elif opcao == 'r':
         df = remover_aluno(df, index)
-        
+
 
     return df
 
@@ -122,6 +133,7 @@ def editar_aluno(df, index):
 
 def pesquisar_aluno(df):
 
+    #Pesquisando aluno pelo nome ou matrícula
     pesquisa_aluno = input('\n-> PESQUISAR ALUNO - DIGITE A OPÇÃO DESEJADA:\n1 - Pesquisar pelo nome\n2 - Pesquisar pela matrícula\n').strip().lower()
 
     if pesquisa_aluno == '1':
@@ -145,7 +157,10 @@ def pesquisar_aluno(df):
     
     if resultado.empty:
         print("\n-> Nenhum aluno encontrado com os critérios fornecidos.\n")
-
+        saida = input("Digite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
+        if saida == 'S':
+            menu_inicial()
+    
     index = resultado.index[0]
     print("\n-> Aluno encontrado:\n")
     print(resultado.loc[index])
@@ -159,6 +174,7 @@ def pesquisar_aluno(df):
         
 def menu_inicial():
 
+    #Menu inicial do sistemam de cadastro
     df = gerar_df()
     print ("\n===== MENU INICIAL =====\n 1 - CADASTRAR ALUNO\n 2 - PESQUISAR ALUNO\n 3 - SAIR\n")
 
