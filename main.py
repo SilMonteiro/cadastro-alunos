@@ -75,8 +75,27 @@ def editar_aluno(df, index):
 
     print("\n-> VOCÊ SELECIONOU A OPÇÃO DE EDITAR ALUNO.\nSeguem os dados atuais do aluno:\n")
     print(df.loc[index])
+    opcao = (input("\nQual dado você deseja editar?\n1 - Nome\n2 - Rua\n3 - Número\n4 - Bairro\n5 - Cidade\n6 - UF\n7 - Telefone\n8 - e-mail\n9 - Sair sem editar\n"))
 
+    colunas = {'1': 'Nome','2': 'Rua','3': 'Número','4': 'Bairro','5': 'Cidade','6': 'UF','7': 'Telefone','8': 'e-mail'}
 
+    if opcao == '9':
+        menu_inicial()
+        return df
+    
+    elif opcao in colunas:
+        nova_informacao = input(f"\nDigite a nova informação para {colunas[opcao]}: ").strip().lower()
+        df.at[index, colunas[opcao]] = nova_informacao
+        salvando_dados(df)
+        print("\n-> Dados atualizados com sucesso!\n")
+        print(df.loc[index])
+        saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
+        if saida == 'S':
+            menu_inicial()
+            
+                   
+
+    return df
 
 
 
