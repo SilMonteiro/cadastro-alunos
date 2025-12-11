@@ -10,6 +10,9 @@ def gerar_df():
     except FileNotFoundError:
         df = pd.DataFrame(columns=["Matricula", "Nome", "Rua", "Número", "Bairro", "Cidade", "UF", "Telefone", "e-mail"])
 
+    if not df.empty and 'Matricula' in df.columns:
+        df['Matricula'] = pd.to_numeric(df['Matricula'], errors='coerce').fillna(0).astype(int)
+
     return df
 
 
@@ -72,8 +75,36 @@ def pesquisar_aluno(df):
 
     pesquisa_aluno = input('\n-> PESQUISAR ALUNO - DIGITE A OPÇÃO DESEJADA:\n1 - Pesquisar pelo nome\n2 - Pesquisar pela matrícula\n').strip().lower()
 
-     
-     
+    if pesquisa_aluno == '1':
+        nome_pesquisa = input("\nDigite o nome do aluno que deseja pesquisar:").strip().lower()
+        resultado = df[df['Nome'].str.contains(nome_pesquisa, case=False, na=False)]
+                       
+    elif pesquisa_aluno == '2':
+
+        matricula_pesquisa = input("\nDigite a matrícula do aluno que deseja pesquisar:").strip()
+
+        try:
+         matricula = int(matricula_pesquisa) 
+         resultado = df[df['Matricula'] == matricula] 
+        except ValueError:
+            print("\n-> Erro: A matrícula deve ser um número inteiro.\n")
+            return pesquisar_aluno(df)
+
+    else:
+        print("\n-> Opção inválida. Tente novamente.\n")
+        return pesquisar_aluno(df)
+    
+    if resultado.empty:
+        print("\n-> Nenhum aluno encontrado com os critérios fornecidos.\n")
+
+    index = resultado.index[0]
+    print("\n-> Aluno encontrado:\n")
+    print(resultado.loc[index])
+    saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
+    if saida == 'S':
+        menu_inicial()
+
+        
 def menu_inicial():
 
     df = gerar_df()
