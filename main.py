@@ -71,17 +71,26 @@ def cadastro_aluno(df):
     return df
 
 
+def editar_aluno(df, index):
+
+    print("\n-> VOCÊ SELECIONOU A OPÇÃO DE EDITAR ALUNO.\nSeguem os dados atuais do aluno:\n")
+    print(df.loc[index])
+
+
+
+
+
 def pesquisar_aluno(df):
 
     pesquisa_aluno = input('\n-> PESQUISAR ALUNO - DIGITE A OPÇÃO DESEJADA:\n1 - Pesquisar pelo nome\n2 - Pesquisar pela matrícula\n').strip().lower()
 
     if pesquisa_aluno == '1':
-        nome_pesquisa = input("\nDigite o nome do aluno que deseja pesquisar:").strip().lower()
+        nome_pesquisa = input("\nDigite o nome do aluno que deseja pesquisar: ").strip().lower()
         resultado = df[df['Nome'].str.contains(nome_pesquisa, case=False, na=False)]
                        
     elif pesquisa_aluno == '2':
 
-        matricula_pesquisa = input("\nDigite a matrícula do aluno que deseja pesquisar:").strip()
+        matricula_pesquisa = input("\nDigite a matrícula do aluno que deseja pesquisar: ").strip()
 
         try:
          matricula = int(matricula_pesquisa) 
@@ -100,10 +109,13 @@ def pesquisar_aluno(df):
     index = resultado.index[0]
     print("\n-> Aluno encontrado:\n")
     print(resultado.loc[index])
-    saida = input("\nDigite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair: ").upper()
+    saida = input("\n- Deseja editar as informações do aluno procurado? Digite 'E'.\n- Digite 'S' para voltar ao menu inicial ou qualquer outra tecla para sair. ").upper()
     if saida == 'S':
         menu_inicial()
+    elif saida == 'E':
+        editar_aluno(df, index)
 
+    return df
         
 def menu_inicial():
 
