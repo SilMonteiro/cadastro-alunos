@@ -13,10 +13,11 @@ As principais funcionalidades desse sistema incluem:
 Antes de utilizar será **necessário** instalar a biblioteca pandas utilizando o comando `pip intall pandas`
 
 ## Como executar o programa
-Abra o terminal, utilize o comando `cd` para indicar o caminho do script e utilize o comando `python cadastrodosalunos.py`
+Abra o terminal, utilize o comando `cd` para indicar o caminho do script e utilize o comando `python cadastrodosalunos.py` para excutar o programa
 
 ## Tecnologia utilizada
 - Biblioteca pandas
+
 
 
 
